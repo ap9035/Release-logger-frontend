@@ -1,25 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import TwoReleases from "./pages/TwoReleases";
+import AppReleases from "./pages/AppReleases";
+import './App.css'; // 引入 CSS
+
+const router = createBrowserRouter([
+        {
+            path: '/',
+            element: <TwoReleases></TwoReleases>
+        },
+        {
+            path: '/app/:appName',
+            element: <AppReleases ></AppReleases>
+        }
+])
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    let title = 'Release Logger - ' + process.env.REACT_APP_ENV;
+    document.title = title;
+
+    return (
+      <>
+          <h1>
+              <a href={'/'}>{title}</a>
+          </h1>
+          <RouterProvider router={router}/>
+      </>
   );
 }
 
